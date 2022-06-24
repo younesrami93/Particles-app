@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallpapers</title>
+
+    <script type="text/javascript" src="js/dashboard/liveWallpapersChooser.js"></script>
+    <script>
+        $().ready(function() {
+
+        })
+    </script>
+</head>
+
+<body>
+
+    <div id="newWAllpaper_container" class="blackBg">
+        <div id="wallpapers" class="smallDialogContainer">
+            <div class="header">
+                <p class="inlineDisplay title3 pading20">New Live Wallpaper</p>
+                <img src="images/close.png" class="pading20 pointer extra_small_icon rightFloat closeNewWallpaper" alt="">
+            </div>
+            <div class="pading20">
+                <div class="inlineDisplay">
+                    <img class="image_holder wallpaper_image_holder" src="images/image_holder.png" alt="">
+                </div>
+                <div class="inlineDisplay paddingLeft20">
+                    <form method="post" action="save_wallpaper.php" enctype="multipart/form-data" id="myform">
+                        <label for="" class="label1 marginLeft6">Wallpaper title</label>
+                        <input class="inputText marginTop20" placeholder="title" type="text" id="wlps_title_inpt" name="title" />
+                        <input class="hidden " type="file" id="wlps_thmb_inpt" name="file" />
+                    </form>
+                    <input class="main_button marginLeft6 marginTop6" type="button" class="button" value="Save" id="submitNewWallpaper">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="wallpaper_container content-grid-container">
+        <div class="content_header">
+            <div class="search">
+                <img class="search_icon inlineDisplay" src="images/search.png">
+                <input class="inlineDisplay" placeholder="Search" type="text">
+                <img src="images/cancel.png" class="inlineDisplay close opacity0">
+            </div>
+            <div class=" titleHolder ">
+                <h3 class="title inlineDisplay ">
+                    Live Wallpapers
+                </h3>
+                <div class="timesort inlineDisplay rightFloat">
+                    <p class="inlineDisplay ">
+                        newest first
+                    </p>
+                </div>
+                <div class="option_button refreshWallpapers inlineDisplay marginLeft20">
+                    Refresh
+                </div>
+                <div class="main_button newWallpaper inlineDisplay marginLeft20">
+                    New
+                </div>
+            </div>
+        </div>
+        <div class="pading10 content_data ">
+            <div class="wallpaper_wraper "></div>
+            <div class="loadMore hidden">
+                Load More
+            </div>
+            <div class="loadingMore hidden">
+                Loading ...
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

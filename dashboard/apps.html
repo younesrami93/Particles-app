@@ -1,0 +1,223 @@
+<div>
+    <script>
+        $().ready(function() {
+
+            function isScriptAlreadyIncluded(src) {
+                var scripts = document.getElementsByTagName("script");
+                for (var i = 0; i < scripts.length; i++)
+                    if (scripts[i].getAttribute('src') == src) return true;
+                return false;
+            }
+
+
+            function loadScript(url, callback) {
+                if (isScriptAlreadyIncluded(url)) {
+                    callback();
+                    return;
+                }
+                var script = document.createElement("script")
+                script.type = "text/javascript";
+                if (script.readyState) { //IE
+                    script.onreadystatechange = function() {
+                        if (script.readyState == "loaded" ||
+                            script.readyState == "complete") {
+                            script.onreadystatechange = null;
+                            callback();
+                        }
+                    };
+                } else { //Others
+                    script.onload = function() {
+                        callback();
+                    };
+                }
+
+                script.src = url;
+                document.getElementsByTagName("head")[0].appendChild(script);
+            }
+
+            loadScript("js/dashboard/app_lists.js", function() {
+                app_lists.init();
+            });
+            loadScript("js/dashboard/appChooser.js", function() {
+                appChooser.init();
+            });
+        })
+    </script>
+
+
+    <div id="app_list" class="blackBg">
+        <div id="" class="dialogContainerLarge">
+            <div class="header paddingLeft20">
+                <img class="inlineDisplay appIcon appicon_big" src="images/android-app-icon.png" alt="">
+                <p class="inlineDisplay title1 appTitle pading20">App title</p>
+                <img src="images/close.png" class="pading20 pointer extra_small_icon rightFloat close_applist" alt="">
+            </div>
+            <div class="dialogBody" class="pading20">
+                <table class="evenTable" style="width: 100%;">
+                    <tr>
+                        <td class="paddingLeft20">
+                            <p>Current pages</p>
+                        </td>
+
+                        <td>
+                            <p class="paddingLeft20 inlineDisplay">
+                                All pages
+                            </p>
+                            <div class="search2 searchApp_list inlineDisplay">
+                                <img class="search_icon inlineDisplay" src="images/search.png">
+                                <input class="inlineDisplay" placeholder="Search" type="text">
+                                <img src="images/cancel.png" class="inlineDisplay close opacity0">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="listContainer leftContainer">
+                                <div class="table-wrapper">
+                                    <table class="fl-table">
+                                        <thead>
+                                            <tr>
+                                                <th>id</th>
+                                                <th>icon</th>
+                                                <th>title</th>
+                                                <th>label</th>
+                                                <th>wallpapers</th>
+                                                <th>action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="listsContainer">
+                                            <tbody>
+                                    </table>
+                                    <div class="loadingMore loadingAppLists hidden" style="color:#333">
+                                        Loading ...
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="listContainer rightContainer">
+                                <div class="table-wrapper">
+                                    <table class="fl-table ">
+                                        <thead>
+                                            <tr>
+                                                <th>id</th>
+                                                <th>icon</th>
+                                                <th>title</th>
+                                                <th>label</th>
+                                                <th>wallpapers</th>
+                                                <th>action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="listsContainer">
+                                            <tbody>
+                                    </table>
+                                    <div class="loadMore loadMoreLists2 hidden">
+                                        Load More
+                                    </div>
+                                    <div class="loadingMore loadingMoreLists2 hidden" style="color:#333">
+                                        Loading ...
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="header pading10">
+                <button class="main_button marginLeft10 save marginRight30 rightFloat">Save</button>
+                <button class="option_button marginLeft10 cancel rightFloat">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="new_container" class="blackBg">
+        <div id="wallpapers" class="smallDialogContainer">
+            <div class="header">
+                <p class="inlineDisplay title3 pading20">New App</p>
+                <img src="images/close.png" class="pading20 pointer extra_small_icon rightFloat closeNewApp" alt="">
+            </div>
+            <div class="pading20">
+                <div class="inlineDisplay">
+                    <img class="app_image_holder image_holder" src="images/image_holder.png" alt="">
+                </div>
+                <div class="inlineDisplay paddingLeft20">
+                    <form method="post" action="save_wallpaper.php" enctype="multipart/form-data" id="myform">
+                        <input class="inputText marginTop20" placeholder="title" type="text" id="app_title_inpt" name="title" />
+                        <input class="inputText marginTop10" placeholder="packagename" type="text" id="app_package_inpt" name="packagename" />
+                        <input class="hidden " type="file" id="app_thmb_inpt" name="file" />
+                    </form>
+                    <input class="main_button marginLeft6 marginTop6" type="button" class="button" value="Save" id="submitNewApp">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="wallpaper_container content-grid-container">
+        <div class="content_header">
+            <div class="search searchApp">
+                <img class="search_icon inlineDisplay" src="images/search.png">
+                <input class="inlineDisplay" placeholder="Search" type="text">
+                <img src="images/cancel.png" class="inlineDisplay close opacity0">
+            </div>
+            <div class=" titleHolder ">
+                <h3 class="title inlineDisplay ">
+                    Apps
+                </h3>
+                <div class="timesort inlineDisplay rightFloat">
+                    <p class="inlineDisplay ">
+                        newest first
+                    </p>
+                </div>
+                <div class="option_button refresh inlineDisplay marginLeft20">
+                    Refresh
+                </div>
+                <div class="main_button newApp inlineDisplay marginLeft20">
+                    New
+                </div>
+            </div>
+        </div>
+        <div class="pading10 content_data ">
+            <div class="apps_wraper ">
+
+
+
+
+
+
+
+
+
+                <div class="table-wrapper">
+                    <table class="fl-table">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>icon</th>
+                                <th>title</th>
+                                <th>package name</th>
+                                <th>pages</th>
+                                <th>api key</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="appsContainer">
+                            <tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="loadMore loadMoreApps hidden">
+                Load More
+            </div>
+            <div class="loadingMore loadingMoreApps hidden">
+                Loading ...
+            </div>
+        </div>
+    </div>
+</div>

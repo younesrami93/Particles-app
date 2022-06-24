@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="style/style.css" rel="stylesheet" />
+    <link href="style/controlls_style.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="style/spectrum.css"/>
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/spectrum.js" ></script>
+    <script src="js/jquery-ui.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="style/jquery-ui.css">
+    <script type="text/javascript" src="js/initializer.js"></script>
+    <script type="text/javascript" src="js/error.js"></script>
+    <script type="text/javascript" src="js/MainMenu.js"></script>
+    <script type="text/javascript" src="js/dialog.js"></script>
+    <script type="text/javascript" src="js/loading.js"></script>
+    <script type="text/javascript" src="js/particleSystem/utils/UTexture.js"></script>
+    <script type="text/javascript" src="js/liveWallpapersChooser.js"></script>
+    <script type="text/javascript" src="js/ps_presetsChooser.js"></script>
+    <script type="text/javascript" src="js/particleSystem/utils/parllaxManager.js"></script>
+    <script type="text/javascript" src="js/particleSystem/utils/imageCollection.js"></script>
+    <script type="text/javascript" src="js/particleSystem/globals.js"></script>
+    <script type="text/javascript" src="js/particleSystem/layers/BaseLayer.js"></script>
+    <script type="text/javascript" src="js/particleSystem/componants/BaseComponant.js"></script>
+    <script type="text/javascript" src="js/particleSystem/componants/PropertyChanger.js"></script>
+    <script type="text/javascript" src="js/particleSystem/componants/CustomPropertyChanger.js"></script>
+    <script type="text/javascript" src="js/particleSystem/spawners/BaseSpawner.js"></script>
+    <script type="text/javascript" src="js/particleSystem/spawners/PointSpawner.js"></script>
+    <script type="text/javascript" src="js/particleSystem/spawners/CircleSpawner.js"></script>
+    <script type="text/javascript" src="js/particleSystem/spawners/RectSpawner.js"></script>
+    <script type="text/javascript" src="js/particleSystem/spawners/LineSpawner.js"></script>
+    <script type="text/javascript" src="js/particleSystem/utils/Utime.js"></script>
+    <script type="text/javascript" src="js/particleSystem/utils/Range.js"></script>
+    <script type="text/javascript" src="js/particleSystem/utils/Vector.js"></script>
+    <script type="text/javascript" src="js/particleSystem/utils/VectorRange.js"></script>
+    <script type="text/javascript" src="js/particleSystem/utils/particle.js"></script>
+    <script type="text/javascript" src="js/particleSystem/utils/graphManager.js"></script>
+    <script type="text/javascript" src="js/particleSystem/layers/ParticleSystem.js"></script>
+    <script type="text/javascript" src="js/particleSystem/layers/WallpaperLayer.js"></script>
+    <script type="text/javascript" src="js/particleSystem/ULiveWallpaper.js"></script>
+    <script type="text/javascript" src="js/controllers/layersController.js"></script>
+    <script type="text/javascript" src="js/controllers/MainController.js"></script>
+    <script type="text/javascript" src="js/controllers/PropertiesController.js"></script>
+    <script type="text/javascript" src="js/particleSystem/utils/ParticleInitValues.js"></script>
+    <script type="text/javascript" src="js/particleSystem/utils/ComponantMaker.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/images.js"></script>
+    <script type="text/javascript" src="js/MenuMaker.js"></script>
+
+    <title>U-WLP Editor</title>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="images/fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/fav/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+
+</head>
+
+<body>
+
+    <div class="menuContainer">
+
+    </div>
+
+    <div id="imageChooser_container" class="blackBg">
+        <div id="imageChooser" class="dialogContainer">
+            <div class="header">
+                <p class="inlineDisplay title3 pading20">Image Chooser</p>
+                <p class="buttonRounded inlineDisplay upload">Upload</p>
+                <div class="search imgSearch inlineDisplay marginLeft20">
+                    <img class="search_icon inlineDisplay" src="images/search.png">
+                    <input class="inlineDisplay" placeholder="Search" type="text">
+                    <img src="images/cancel.png" class="inlineDisplay close opacity0">
+                </div>
+                <div class="timesort img_timesort main_button inlineDisplay">
+                    newest first
+                </div>
+
+                <div class="option_button refreshImages inlineDisplay marginLeft20">
+                    Refresh
+                </div>
+
+                <form class="hidden" method="post" action="upload.php" enctype="multipart/form-data" id="myform">
+                    <input type="file" id="file" name="file" />
+                    <input type="button" class="button" value="Upload" id="but_upload">
+                </form>
+                <img src="images/close.png" class="pading20 extra_small_icon rightFloat closeImageChooser" alt="">
+            </div>
+            <div class="imageChoosercontent dialog_content">
+                <div class="images_wraper "></div>
+                <div class="loadMore img_loadMore hidden">
+                    Load More
+                </div>
+                <div class="loadingMore imgLoadingMore hidden">
+                    Loading ...
+                </div>
+                <div class="images_noData noData hidden">
+                    No data found
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="presets_container" class="blackBg" style="">
+        <div id="presets" class="dialogContainer">
+            <div class="header">
+                <p class="inlineDisplay title3 pading20">Presets</p>
+                <img src="images/close.png" class="pading20 extra_small_icon rightFloat closePresetChooser" alt="">
+            </div>
+            <div class="presets_content dialog_content pading10">
+
+            </div>
+        </div>
+    </div>
+    <div id="livewallpapers_container" class="blackBg">
+        <div id="wallpapers" class="dialogContainer dialog_container">
+            <div class="header dialog_header">
+                <p class="inlineDisplay title3 pading20">live wallpapers</p>
+                <p class="main_button inlineDisplay createWallpaper">New</p>
+                <div class="search wlpsSearch inlineDisplay marginLeft20">
+                    <img class="search_icon inlineDisplay" src="images/search.png">
+                    <input class="inlineDisplay" placeholder="Search" type="text">
+                    <img src="images/cancel.png" class="inlineDisplay close opacity0">
+                </div>
+
+                <div class="timesort wlp_timesort main_button inlineDisplay">
+                    newest first
+                </div>
+
+                <div class="option_button refreshWallpapers inlineDisplay marginLeft20">
+                    Refresh
+                </div>
+
+
+
+                <form class="hidden" method="post" action="upload.php" enctype="multipart/form-data" id="myform">
+                    <input type="file" id="file" name="file" />
+                    <input type="button" class="button" value="Upload" id="but_upload">
+                </form>
+                <img src="images/close.png" class="pading20 extra_small_icon rightFloat closeliveWallpaperChooser" alt="">
+
+            </div>
+            <div class="livewallpaperscontent dialog_content pading10">
+                <div class="wallpaper_wraper "></div>
+                <div class="loadMore wlpLoadMore hidden">
+                    Load More
+                </div>
+                <div class="loadingMore wlpLoadingMore hidden">
+                    Loading ...
+                </div>
+                <div class="liveWallpapers_noData noData hidden">
+                    No data found
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="newWAllpaper_container" class="blackBg">
+        <div id="wallpapers" class="smallDialogContainer">
+            <div class="header">
+                <p class="inlineDisplay title3 pading20">New Live Wallpaper</p>
+                <img src="images/close.png" class="pading20 pointer extra_small_icon rightFloat closeNewWallpaper" alt="">
+            </div>
+            <div class="pading20">
+                <div class="inlineDisplay">
+                    <img class="wallpaper_image_holder" src="images/image_holder.png" alt="">
+                </div>
+                <div class="inlineDisplay paddingLeft20">
+                    <label for="" class="label1">Wallpaper title</label>
+                    <input class="inputText" placeholder="title" type="text" id="wlps_title_inpt" name="title" />
+                    <input class="hidden" type="file" id="wlps_thmb_inpt" name="file" />
+                    <input class="button1-selected" type="button" class="button" value="Save" id="submitNewWallpaper">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wallpaperSettings_container" class="blackBg" style="">
+        <div id="wallpaperSettings" class="smallDialogContainer">
+            <div class="header">
+                <p class="inlineDisplay title3 pading20">Wallpaper Settings</p>
+                <img src="images/close.png" class="pading20 pointer extra_small_icon rightFloat closeWallpaperSettings" alt="">
+            </div>
+            <div class="pading20">
+                <div class="inlineDisplay paddingLeft20">
+                    <div class="paralaxStrength ">
+                        <p class="title tinyText2">Global Parallax Strength</p>
+                        <div class="range-slider sliderInput sliderControl"></div>
+                        <span class="slideValue slideValue2">5</span>        
+                    </div>
+                    <br>
+                    <div class="paralaxSmooth ">
+                        <p class="title tinyText2">Smooth Prallax</p>
+                        <div class="range-slider sliderInput sliderControl"></div>
+                        <span class="slideValue slideValue2">7</span>        
+                    </div>
+                    <br>
+                    <div class="">
+                        <p class="title tinyText2">Prallax Reset Smoothness</p>
+                        <input type="checkbox" class="parallaxResetCheckbox">
+                        <label class="label1">Paralax Always Reset</label>
+                    </div>
+                    <div class="paralaxReset">
+                        <div class="range-slider sliderInput sliderControl"></div>
+                        <span class="slideValue slideValue2">50</span>        
+                    </div>
+                   <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="newPreset_container" class="blackBg" style="display: none;">
+        <div id="wallpapers" class="smallDialogContainer">
+            <div class="header">
+                <p class="inlineDisplay title3 pading20">New preset</p>
+                <img src="images/close.png" class="pading20 pointer extra_small_icon rightFloat closeNewPreset" alt="">
+            </div>
+            <div class="pading20">
+                <div class="inlineDisplay paddingLeft20">
+                    <label for="" class="label1">Preset title</label>
+                    <input class="inputText" placeholder="title" type="text" id="preset_title" name="title" />
+                    <label for="" class="label1">Description</label>
+                    <input class="inputText" placeholder="description" type="text" id="preset_description" name="title" />
+                    <input class="button1-selected" type="button" class="button" value="Save" id="submitNewPreset">
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="dialog" class="blackBg" style="display:none">
+        <div class="dialogContainer2">
+            <div class="header">
+                <p class="title3 dialogTitle inlineDisplay pading20">dialog title</p>
+                <img src="images/close.png" class="pading20 extra_small_icon rightFloat closeDialog" alt="">
+            </div>
+            <p class="msg">Message here</p>
+            <div class="center">
+                <p class="buttonRounded2 inlineDisplay action1">option1</p>
+                <p class="buttonRounded2 inlineDisplay action2">option2</p>
+                <p class="buttonRounded2 inlineDisplay action3">option3</p>
+            </div>
+            <br>
+        </div>
+    </div>
+
+    <div id="loadingDialog" class="blackBg" style="display:none">
+        <div class="dialogContainer2">
+            <img src="images/index.svg" style="display: block" class="center pading20">
+            <p class="msg2">Loading..</p>
+        </div>
+    </div>
+
+
+
+    <div id="graphEditor" class="hidden">
+        <div class="header pading10">
+            <p class="graphTitle inlineDisplay">Graph Editor</p>
+            <img src="images/close.png" class="close extra_small_icon rightFloat">
+        </div>
+        <div class="axis">
+            <div class="ax">x</div>
+            <div class="ax selectedAx">y</div>
+        </div>
+
+        <div class="graphSidePanel inlineDisplay">
+            <div>
+                <div class="graphModes">
+                    <img src="images/delete2.png" class="graphMode graphDelete">
+                    <img src="images/add_icon.png" class="graphMode graphAdd">
+                </div>
+                <p>time</p>
+                <input class="pointTimeInpt inputSimple" type="text">
+                <p>value</p>
+                <input class="pointValueInpt inputSimple" type="text">
+
+            </div>
+        </div>
+
+        <div class="graph inlineDisplay">
+            <div class="lineH">
+                <p class="p1">Time</p>
+                <p class="p2">100</p>
+            </div>
+            <div class="lineV">
+                <p class="p1">Value</p>
+            </div>
+            <div class="pointsContainer">
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="grid-container">
+        <div class="page_header">
+            <img src="images/logo_colored.png" class="logo inlineDisplay">
+            <div id="menu" class="inlineDisplay">
+                <div class="inlineDisplay menuRootItem menuDashboard">Dashboard</div>
+                <div class="inlineDisplay menuRootItem">File
+                    <div class="menuList">
+                        <div class="menuItem newWlp">New</div>
+                        <div class="menuItem openWlp">Open Wallpaper</div>
+                        <div class="menuItem saveWlp">Save</div>
+                        <div class="menuItem saveAsWlp">Save As</div>
+                        <div class="menuItem exportPackage">Export to package</div>
+                        <!--div class="menuItem">
+                            <div class="sideList">
+                                <div class="menuItem">JSON</div>
+                                <div class="menuItem">package</div>
+                                <div class="menuItem">zip</div>
+                            </div>
+                            <img src="images/arrow_left.png" class="extra_small_icon3 menuArrow inlineDisplay rightFloat"> Export as
+                        </div-->
+                        <!--div class="menuItem">Export wallpaper</div-->
+                    </div>
+                </div>
+                <div class="inlineDisplay menuRootItem">Images
+                    <div class="menuList">
+                        <div class="menuItem images">Images</div>
+                        <div class="menuItem particles">Particles</div>
+                    </div>
+                </div>
+
+                <div class="inlineDisplay menuRootItem Presets">Presets
+                </div>
+                <div class="inlineDisplay menuRootItem">Help</div>
+            </div>
+            <div class="option_button saveChanges inlineDisplay rightFloat" style="margin: 4px 22px;">Save Changes</div>
+        </div>
+
+
+
+        <div class="layers_area">
+            <div class="headerContainer">
+                <img src="images/layers_icon.png" class="small_icon inlineDisplay" alt="">
+                <p class="small_title inlineDisplay marginRight30">layers</p>
+
+                <img src="images/add_icon.png" class="add_layer_btn btn_effect pointer extra_small_icon inlineDisplay" alt="">
+                <img src="images/trash.png" class="remove btn_effect pointer extra_small_icon inlineDisplay" alt="">
+                <img src="images/up.png" class="moveUp btn_effect pointer extra_small_icon inlineDisplay" alt="">
+                <img src="images/down.png" class="moveDown btn_effect pointer extra_small_icon inlineDisplay" alt="">
+            </div>
+            <div id="layers_container">
+
+            </div>
+        </div>
+
+        <div class="content_area">
+
+            <div class="editorOptions">
+                <div class="wallpaperTitle inlineDisplay" style="    float: left">
+                    <p class="inlineDisplay"></p>
+                    <img src="images/settings.png" class="wallpaper_settings btn_effect pointer extra_small_icon inlineDisplay" alt="">
+                </div>
+                <div class="editorHeaderOptions">
+                    <img src="images/expand.png" class="btn_effect icon pointer inlineDisplay" alt="normal">
+                    <img src="images/zoom-in.png" class="btn_effect icon pointer inlineDisplay" alt="zoom in">
+                    <img src="images/zoom-out.png" class="btn_effect icon pointer inlineDisplay" alt="zoom out">
+                    <p class="button1 parallaxButton">Parallax</p>
+
+                    <div class="paralaxHandler inlineDisplay">
+                        <p class="button1 rotateButton">Rotate</p>
+                        <div class="paralaxThumb"></div>
+
+                    </div>
+
+                </div>
+
+
+
+
+
+            </div>
+
+
+            <div class="controls_unit">
+
+            </div>
+
+
+
+            <div class="center">
+                <div class="canvasHolder">
+                    <canvas id="glCanvas" class="center" width="380" height="760"></canvas>
+
+                    <div class="h-sizer sizer">
+                    </div>
+
+                </div>
+                <div class="w-sizer sizer">
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="controls-area">
+            <div class="control">
+                <p class="propTitle tinyText2">timespan</p>
+                <div class="inlineDisplay">
+                    <p class="title tinyText">start</p>
+                    <div class="UNumberInput">
+                        <div class="arrowsHolder inlineDisplay">
+                            <img src="images/arrow_up.png" class="arrowUp arrow">
+                            <img src="images/arrow_down.png" class="arrowDown arrow">
+                        </div>
+                        <input type="text" class="" min="-100" max="100" />
+                    </div>
+                </div>
+                <div class="inlineDisplay">
+                    <p class="title tinyText">start</p>
+                    <div class="UNumberInput">
+                        <div class="arrowsHolder inlineDisplay">
+                            <img src="images/arrow_up.png" class="arrowUp arrow">
+                            <img src="images/arrow_down.png" class="arrowDown arrow">
+                        </div>
+                        <input type="text" class="" min="-100" max="100" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer"></div>
+
+    </div>
+
+
+
+
+</body>
+
+</html>

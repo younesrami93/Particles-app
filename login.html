@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login V10</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style/login_style.css">
+
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function() {
+            //option A
+            function showError(msg) {
+                $(".error").text(msg);
+                $(".error").show();
+                $(".error").effect("fade");
+            }
+
+            function hideError() {
+                $(".error").hide();
+            }
+
+            function loginProcess(username, password) {
+                var data = new FormData();
+                data.append('username', username);
+                data.append('password', password);
+                $(".wrap-login100").css("opacity", "0.4");
+                $.ajax({
+                    type: 'POST',
+                    url: 'verify_login.php',
+                    processData: false,
+                    contentType: false,
+                    data: data,
+                    success: function(data) {
+                        var js = JSON.parse(data)
+                        if (js.code == 1) {
+                            document.location = "index.html";
+                        } else {
+                            showError(js.message);
+                            $(".wrap-login100").css("opacity", "1");
+                        }
+                    },
+                    error: function(data) {
+                        alert(data);
+                        $(".wrap-login100").css("opacity", "1");
+                    },
+                });
+            }
+            $("form").submit(function(e) {
+                e.preventDefault(e);
+
+                hideError();
+                var username = $(".username").val();
+                var password = $(".password").val();
+                if (username == "") {
+                    showError("Username is empty")
+                } else if (password == "") {
+                    showError("password is empty")
+                } else {
+                    loginProcess(username, password);
+                }
+
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-t-50 p-b-90">
+                <img class="top_logo" src="images/logo_colored.png" alt="">
+                <form class="login100-form validate-form flex-sb flex-w">
+                    <span class="login100-form-title p-b-51">
+Login
+</span>
+                    <div class="wrap-input100 validate-input m-b-16" data-validate="Username is required">
+                        <input class="input100 username" type="text" name="username" placeholder="Username">
+                        <span class="focus-input100"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input m-b-16" data-validate="Password is required">
+                        <input class="input100 password" type="password" name="pass" placeholder="Password">
+                        <span class="focus-input100"></span>
+                    </div>
+                    <div class="flex-sb-m w-full p-t-3 p-b-24">
+
+                    </div>
+                    <div class="container-login100-form-btn m-t-17">
+                        <button class="login100-form-btn">
+Login
+</button>
+                        <div class="error">error here</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="dropDownSelect1"></div>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+    </script>
+</body>
+
+</html>

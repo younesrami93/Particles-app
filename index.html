@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="style/dashboard_style.css" rel="stylesheet" />
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="style/jquery-ui.css">
+    <script type="text/javascript" src="js/error.js"></script>
+    <script type="text/javascript" src="js/MainMenu.js"></script>
+    <script type="text/javascript" src="js/dialog.js"></script>
+    <script type="text/javascript" src="js/loading.js"></script>
+    <script type="text/javascript" src="js/dashboard.js"></script>
+    <script type="text/javascript" src="js/MenuMaker.js"></script>
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <div id="mainLoadingContainer">
+        <img src="images/index.svg" class="loading">
+    </div>
+    <div id="mainContainer">
+        <div class="menuContainer">
+
+        </div>
+
+        <div id="dialog" class="blackBg" style="display:none">
+            <div class="dialogContainer2">
+                <div class="header">
+                    <p class="title3 dialogTitle inlineDisplay pading20">dialog title</p>
+                    <img src="images/close.png" class="pading20 extra_small_icon rightFloat closeDialog" alt="">
+                </div>
+                <p class="msg">Message here</p>
+                <div class="center">
+                    <p class="buttonRounded2 inlineDisplay action1">option1</p>
+                    <p class="buttonRounded2 inlineDisplay action2">option2</p>
+                    <p class="buttonRounded2 inlineDisplay action3">option3</p>
+                </div>
+                <br>
+            </div>
+        </div>
+
+
+
+        <div class="grid-container">
+
+
+
+            <div class="side_menu">
+                <div class="logo-container">
+                    <div class="logoWraper">
+                        <img class="inlineDisplay" src="images/logo_white.png">
+                        <p class="inlineDisplay">UWLP</p>
+                    </div>
+                </div>
+                <div class="profile">
+                    <img src="images/profile_holder.png">
+                    <p>Younes Errami</p>
+                </div>
+                <div class="profile_info">
+                    <div class="countHolder rightBorder inlineDisplay">
+                        <h3 class="appsCount">49</h3>
+                        <p>App</p>
+                    </div>
+                    <div class="countHolder inlineDisplay">
+                        <h3 class="wallpapersCount">49</h3>
+                        <p>Wallpapers</p>
+                    </div>
+
+                </div>
+                <div class="action_buttons_container">
+                    <div class="action_button action_button-selected" data="dashboard/apps.html,apps">
+                        <img class="inlineDisplay" src="images/apps.png" alt="">
+                        <p class="inlineDisplay">Apps</p>
+                    </div>
+                    <div class="action_button " data="dashboard/lists.html,lists">
+                        <img class="inlineDisplay" src="images/tabs.png" alt="">
+                        <p class="inlineDisplay">Pages</p>
+                    </div>
+                    <div class="action_button" data="dashboard/wallpapers.html,wallpapers">
+                        <img class="inlineDisplay" src="images/wallpaper_icon.png" alt="">
+                        <p class="inlineDisplay">Wallpapers</p>
+                    </div>
+                    <div class="action_button" data="editor">
+                        <img class="inlineDisplay" src="images/editor.png" alt="">
+                        <p class="inlineDisplay">Editor</p>
+                        <img class="inlineDisplay marginLeft30" src="images/export.png" alt="">
+
+                    </div>
+
+                    <br>
+                    <br>
+                    <br>
+                    <div class="logout" data="editor">
+                        <img class="inlineDisplay" src="images/logout.png" alt="">
+                        <p class="inlineDisplay">Disconnect</p>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <div class=" content_area">
+
+            </div>
+
+
+
+
+        </div>
+
+        <div id="loadingDialog" class="blackBg" style="display:none">
+            <div class="dialogContainer2">
+                <img src="images/index.svg" style="display: block" class="center pading20">
+                <p class="msg2">Loading..</p>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
